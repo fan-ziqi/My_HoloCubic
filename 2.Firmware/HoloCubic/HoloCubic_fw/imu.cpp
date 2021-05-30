@@ -39,7 +39,7 @@ void IMU::update(int interval)
 		if (ax > 4000 && flag)
     	{
       		delay(2000);
-          	if (ax > 6000 && flag)
+          	if (ax > 4000 && flag)
       	{
           	image_flag=1;
           	flag = 0;
@@ -49,7 +49,7 @@ void IMU::update(int interval)
     else if(ax<-3000 && flag )
     {
         delay(2000);
-        if (ax<-4000  && flag)
+        if (ax<-3000  && flag)
       { 
         image_flag=0;
         flag = 0;

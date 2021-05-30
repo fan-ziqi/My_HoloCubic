@@ -338,7 +338,7 @@ void setup()
 
   /*** Init screen ***/
   screen.init();
-  screen.setBackLight(0.9);//0.1
+  screen.setBackLight(0.6);//0.1
 
   /*** Init IMU as input device ***/
   lv_port_indev_init();
