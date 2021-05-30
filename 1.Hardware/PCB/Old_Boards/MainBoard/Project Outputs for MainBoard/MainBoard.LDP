@@ -1,0 +1,3 @@
+Layer Pairs Export File for PCB: \\Mac\Home\Desktop\我的文件\科研\其他项目\HoloCubic\HoloCubic-main\1.Hardware\Naive Version\HoloCubic-Assembled\new\MainBoard.PcbDoc
+LayersSetName=Top_Bot_Thru_Holes|DrillFile=mainboard-roundholes.txt|DrillLayers=gtl,gbl
+LayersSetName=Top_Bot_Slot_Holes|DrillFile=mainboard-slotholes.txt|DrillLayers=gtl,gbl

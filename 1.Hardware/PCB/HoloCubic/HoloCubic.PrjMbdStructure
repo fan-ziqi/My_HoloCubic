@@ -1,0 +1,4 @@
+Record=DiagramHierarchy|SourceDocument=HoloCubic.MbsDoc|Kind=Multi-board Schematic Module|Designator=PCB2|Source=LCD\LCD.PrjPcb
+Record=SubProject|SourceDocument=HoloCubic.MbsDoc|ProjectPath=LCD\LCD.PrjPcb
+Record=DiagramHierarchy|SourceDocument=HoloCubic.MbsDoc|Kind=Multi-board Schematic Module|Designator=PCB1|Source=Main\Main.PrjPcb
+Record=SubProject|SourceDocument=HoloCubic.MbsDoc|ProjectPath=Main\Main.PrjPcb

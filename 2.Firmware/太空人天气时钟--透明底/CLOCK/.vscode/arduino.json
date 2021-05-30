@@ -1,0 +1,4 @@
+{
+    "configuration": "PartitionScheme=no_ota,UploadSpeed=921600,DebugLevel=none",
+    "board": "esp32:esp32:pico32"
+}
