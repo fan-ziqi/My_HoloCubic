@@ -4,7 +4,6 @@
 #include "ambient.h"
 #include "network.h"
 #include "sd_card.h"
-#include "rgb_led.h"
 #include "lv_port_indev.h"
 #include "lv_port_fatfs.h"
 #include "lv_cubic_gui.h"
@@ -14,7 +13,6 @@
 /*** Component objects ***/
 Display screen;
 IMU mpu;
-Pixel rgb;
 SdCard tf;
 Network wifi;
 
@@ -26,15 +24,11 @@ void setup()
 
     /*** Init screen ***/
     screen.init();
-    screen.setBackLight(0.4);
+    screen.setBackLight(0.8);
 
     /*** Init IMU as input device ***/
     lv_port_indev_init();
     mpu.init();
-
-    /*** Init on-board RGB ***/
-    rgb.init();
-    rgb.setBrightness(0.1).setRGB(0, 0, 122, 204).setRGB(1, 0, 122, 204);
 
     /*** Init micro SD-Card ***/
     tf.init();

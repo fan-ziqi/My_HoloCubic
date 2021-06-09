@@ -86,18 +86,16 @@ void lv_demo_encoder(void)
     
     lv_obj_set_style_local_bg_color(tv, LV_OBJ_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_BLACK);
 
-    lv_tabview_set_btns_pos(tv, LV_TABVIEW_TAB_POS_NONE);
 
     t1 = lv_tabview_add_tab(tv, "Selectors");
     t2 = lv_tabview_add_tab(tv, "Text input");
-    //t3 = lv_tabview_add_tab(tv, "Tab 3");
 
     lv_group_add_obj(g, tv);
 
     selectors_create(t1);
     text_input_create(t2);
 
-   // msgbox_create();
+    msgbox_create();
 }
 
 /**********************

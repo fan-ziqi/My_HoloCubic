@@ -5,7 +5,6 @@
 #include <I2Cdev.h>
 #include <MPU6050.h>
 #include "lv_port_indev.h"
-#include "rgb_led.h"
 
 #define IMU_I2C_SDA 32 
 #define IMU_I2C_SCL 33

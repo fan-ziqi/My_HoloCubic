@@ -11,8 +11,6 @@
 #include <WebServer.h>
 #include <WiFiMulti.h> // 当我们需要使用ESP8266开发板存储多个WiFi网络连接信息时，可以使用ESP8266WiFiMulti库来实现。
 
-#include "keyboard.h"
-
 #define PAGE_MAX 3 //总页数
 
 int image_pos = 0;  // 记录相册播放的历史
@@ -36,9 +34,9 @@ struct Config
 };
 
 Config g_cfg; // 全局配置文件
-// 保存天气
 Weather g_weather = {0, 0}; // 保存天气
-/*** Component objects **7*/
+
+/*** Component objects ***/
 Display screen;
 IMU mpu;
 SdCard tf;
@@ -65,37 +63,6 @@ void (*p_processList[2])(Imu_Active *) = {clock_app_process, picture_app_process
 void controller(Imu_Active *act_info); // 对所有控制的通用处理
 int processId = 0;
 
-////####################################################################################################
-//// 文件上传SD卡
-////####################################################################################################
-//void handleFileUpload(){//网络服务处理函数
-//  upload_flag = true;//正在进行上传
-//  if(server.uri() != "/") return;
-//  HTTPUpload& upload = server.upload();
-//  String filename;
-//  char *file_sd;
-//  if(upload.status == UPLOAD_FILE_START){//开启下载上传的文件
-//    filename = upload.filename;
-//    if(!filename.startsWith("/"))
-//    {
-//      filename = "/loge"+String(tft_num)+".jpg";//如果文件开头没有/则添加/ 并且对该图片添加计数尾缀
-//      tft_num++;//文件数+1
-//      EEPROM.write(20,tft_num);//将数据保存
-//      EEPROM.commit();
-//    }
-//    Serial.print("handleFileUpload Name: "); Serial.println(filename);//打印文件名
-//
-//    SD.remove(filename);
-//    fsUploadFile = SD.open(filename, "w");//将上传的文件保存
-//    filename = String();
-//  } else if(upload.status == UPLOAD_FILE_WRITE){
-//    if(fsUploadFile)
-//      fsUploadFile.write(upload.buf, upload.currentSize);//将上传文件写入SD卡
-//  } else if(upload.status == UPLOAD_FILE_END){
-//    if(fsUploadFile)
-//      fsUploadFile.close();
-//  }
-//}
 void UpdateWeather(void)
 {
     g_weather = g_network.getWeather("https://api.seniverse.com/v3/weather/now.json?key=" + g_cfg.weather_key + "&location=" + g_cfg.cityname + "&language=" + g_cfg.language + "&unit=" + unit); //如果要改城市这里也需要修改
@@ -125,10 +92,10 @@ void config_read(const char *file_path, Config *cfg)
     cfg->ssid = tf.readFileLine(file_path, 1);     // line-1 for WiFi ssid
     cfg->password = tf.readFileLine(file_path, 2); // line-2 for WiFi password
     cfg->cityname = tf.readFileLine(file_path, 3); // line-3 for cityname
-    // cfg->language = tf.readFileLine(file_path, 4); // line-2 for language
-    // cfg->weather_key = tf.readFileLine(file_path, 5); // line-3 for weather_key
-    cfg->language = "zh-Hans";
-    cfg->weather_key = "SqTlWHkGy6Ig6XcZG"; // line-3 for weather_key
+    cfg->language = tf.readFileLine(file_path, 4); // line-2 for language
+    cfg->weather_key = tf.readFileLine(file_path, 5); // line-3 for weather_key
+    // cfg->language = "zh-Hans";
+    // cfg->weather_key = "SqTlWHkGy6Ig6XcZG"; // line-3 for weather_key
     Serial.println(cfg->ssid);
     Serial.println(cfg->password);
     Serial.println(cfg->cityname);
@@ -284,6 +251,8 @@ void picture_app_process(Imu_Active *act_info)
 
     display_photo(file_name_list[image_pos]);
     lv_scr_load_anim(scr[3], direction, 100, 0, false);
+
+
 }
 
 void setup()
@@ -301,8 +270,13 @@ void setup()
     /*** Init micro SD-Card ***/
     tf.init();
     lv_fs_if_init();
+
     config_read("/wifi.txt", &g_cfg);
     tf.listDir("/image", 250);
+
+    // mpu.active_info.isValid=0;
+
+    // lv_demo_encoder();
 
     /*** Read WiFi info in SD-Card, then scan & connect WiFi ***/
     g_network.init(g_cfg.ssid, g_cfg.password);
@@ -314,21 +288,23 @@ void setup()
 void loop()
 {
     server.handleClient();
-    // run this as often as possible ��
+    // run this as often as possible
     UpdateWeather();
     act_info = mpu.update(200);
     act_info->active = GO_FORWORD;  // 让第一次能够执行刷新屏幕的判断
-    // lv_demo_encoder();
+
     while (true)
     {
-
         screen.routine();
         controller(act_info); // 运行当前进程
         delay(300);
         act_info = mpu.update(200);
-
         wifi_auto_process(); // 任务调度
     }
+
+    // Serial.println(mpu.active_info.isValid);
+    // screen.routine();
+    // mpu.update(200);
 }
 
 boolean doDelayMillisTime(long interval, unsigned long *previousMillis, boolean state)

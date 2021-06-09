@@ -4,6 +4,7 @@
         "cmath": "cpp",
         "cstdlib": "cpp",
         "lv_port_indev.h": "c",
-        "imu.h": "c"
+        "imu.h": "c",
+        "lv_demo_encoder.h": "c"
     }
 }

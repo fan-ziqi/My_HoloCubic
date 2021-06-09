@@ -3,7 +3,6 @@
  *********************/
 #include "lv_cubic_gui.h"
 #include "images.h"
-#include "lv_port_indev.h"
 
 // 必须定义为全局或者静态
 lv_obj_t *scr[4];
@@ -108,6 +107,8 @@ void display_init(void)
 
   scr[3] = lv_obj_create(NULL, NULL);
   photo_image = lv_img_create(scr[3], NULL);
+
+
 }
 
 void display_photo(const char *file_name)
@@ -182,3 +183,4 @@ void display_hardware(const char *info)
   lv_label_set_text_fmt(net_download_label, "Net Download: %dKB/s", 0);
   lv_obj_set_pos(net_download_label, 2, 150);
 }
+

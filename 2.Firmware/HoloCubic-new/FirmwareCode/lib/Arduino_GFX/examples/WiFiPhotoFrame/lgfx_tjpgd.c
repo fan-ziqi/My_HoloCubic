@@ -418,7 +418,7 @@ static void block_idct (
 		v4 = (v4 << 1) - v5;
 
 		v6 = src[5];
-		v7 = src[3] + v6;
+		v7 = g + v6;
 		v6 = (v6 << 1) - v7;
 
 		v7 += v5;

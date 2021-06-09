@@ -40,10 +40,11 @@ private:
 	int flag;
 	long  last_update_time;
 
+	int16_t ax, ay, az;
+	int16_t gx, gy, gz;
+
 public:
 	Imu_Active active_info;
-	
-public:
 	void init();
 	Imu_Active* update(int interval);
 
