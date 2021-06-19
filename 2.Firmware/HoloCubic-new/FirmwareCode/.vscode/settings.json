@@ -5,6 +5,13 @@
         "cstdlib": "cpp",
         "lv_port_indev.h": "c",
         "imu.h": "c",
-        "lv_demo_encoder.h": "c"
+        "lv_demo_encoder.h": "c",
+        "array": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "vector": "cpp",
+        "initializer_list": "cpp"
     }
 }
